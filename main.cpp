@@ -12,8 +12,20 @@ enum class Align {
   Right
 };
 
+void appendLine(string &result, const vector<string> &words, int line_curr_width, int width, Align a) {
+  if (Align::Right == a) {
+    int left_pad = width - line_curr_width;
+    if (0 < left_pad) result += string(left_pad, ' ');
+  }
+  for (int i = 0; i < words.size(); ++i) {
+    if (0 < i) result += ' ';
+    result += words[i];
+  }
+  result.push_back('\n');
+}
+
 string align(istream &in, int width, Align a) {
-  string word, result, space = " "s;
+  string word, result;
   int line_char_count = 0;
   vector<string> line_words;
   while (in >> word) {
@@ -22,31 +34,15 @@ string align(istream &in, int width, Align a) {
       line_words.push_back(word);
       line_char_count += word.length();
     } else {
-      if (Align::Right == a) {
-        int left_pad = width - line_curr_width;
-        if (0 < left_pad) result += string(left_pad, ' ');
-      }
-      for (int i = 0; i < line_words.size(); ++i) {
-        if (0 < i) result += space;
-        result += line_words[i];
-      }
-      result.push_back('\n');
+      appendLine(result, line_words, line_curr_width, width, a);
       line_words = {word};
       line_char_count = word.length();
     }
   }
   // Append last buffered line
   if (!line_words.empty()) {
-    if (Align::Right == a) {
-      const int line_curr_width = line_char_count + line_words.size() - 1;
-      int left_pad = width - line_curr_width;
-      if (0 < left_pad) result += string(left_pad, ' ');
-    }
-    for (int i = 0; i < line_words.size(); ++i) {
-      if (0 < i) result += space;
-      result += line_words[i];
-    }
-    result.push_back('\n');
+    const int line_curr_width = line_char_count + line_words.size() - 1;
+    appendLine(result, line_words, line_curr_width, width, a);
   }
 
   return result;
