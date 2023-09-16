@@ -8,9 +8,12 @@ using namespace std;
 void appendLine(string &result, const vector<string> &words, int line_char_count, int width, Align a) {
   string separator = " "s;
   int just_sep_remainder = 0;
-  if (Align::Right == a) {
-    int left_pad = width - (line_char_count + words.size() - 1);
-    if (0 < left_pad) result += string(left_pad, ' ');
+  const int line_space_count = width - (line_char_count + words.size() - 1);
+  if (Align::Right == a && 0 < line_space_count) {
+    result += string(line_space_count, ' ');
+  } else if (Align::Center == a && 0 < line_space_count) {
+    auto pad = std::div(line_space_count, 2);
+    result += string(pad.quot + pad.rem, ' ');
   } else if (Align::Justify == a) {
     int space_count = width - line_char_count;
     const int sep_count = words.size() - 1;

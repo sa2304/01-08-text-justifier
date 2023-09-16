@@ -12,13 +12,15 @@ Align parseAlign(const string& s) {
     a = Align::Right;
   } else if ("j"s == s) {
     a = Align::Justify;
+  } else if ("c"s == s) {
+    a = Align::Center;
   }
 
   return a;
 }
 
 void printUsage(const char *app_name) {
-  cout << "Usage: "s << app_name << " <text-width> l|r|j <filename>"s << endl;
+  cout << "Usage: "s << app_name << " <text-width> l|r|j|c <filename>"s << endl;
 }
 
 int main(int argc, char **argv) {

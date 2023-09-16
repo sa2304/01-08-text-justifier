@@ -7,7 +7,8 @@
 enum class Align {
   Left = 0,
   Right,
-  Justify
+  Justify,
+  Center
 };
 
 std::string align(std::istream &in, int width, Align a);

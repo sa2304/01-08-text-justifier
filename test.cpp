@@ -91,6 +91,61 @@ void TestJustify60() {
   assert(expected == result);
 }
 
+void TestCenter38() {
+  string expected = "      Lorem ipsum dolor sit amet,\n"
+                    "  consectetur adipiscing elit, sed do\n"
+                    "eiusmod tempor incididunt ut labore et\n"
+                    " dolore magna aliqua. Ut enim ad minim\n"
+                    "   veniam, quis nostrud exercitation\n"
+                    " ullamco laboris nisi ut aliquip ex ea\n"
+                    "          commodo consequat.\n";
+  stringstream s{SampleText};
+  string result = align(s, 38, Align::Center);
+  assert(expected == result);
+}
+
+void TestCenter70() {
+  string expected = "    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\n"
+                    "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\n"
+                    "    minim veniam, quis nostrud exercitation ullamco laboris nisi ut\n"
+                    "                   aliquip ex ea commodo consequat.\n";
+  stringstream s{SampleText};
+  string result = align(s, 70, Align::Center);
+  assert(expected == result);
+}
+
+void TestCenter10() {
+  string expected = "   Lorem\n"
+                    "   ipsum\n"
+                    " dolor sit\n"
+                    "   amet,\n"
+                    "consectetur\n"
+                    "adipiscing\n"
+                    " elit, sed\n"
+                    "do eiusmod\n"
+                    "  tempor\n"
+                    "incididunt\n"
+                    " ut labore\n"
+                    " et dolore\n"
+                    "   magna\n"
+                    "aliqua. Ut\n"
+                    "  enim ad\n"
+                    "   minim\n"
+                    "  veniam,\n"
+                    "   quis\n"
+                    "  nostrud\n"
+                    "exercitation\n"
+                    "  ullamco\n"
+                    "  laboris\n"
+                    "  nisi ut\n"
+                    "aliquip ex\n"
+                    "ea commodo\n"
+                    "consequat.\n";
+  stringstream s{SampleText};
+  string result = align(s, 10, Align::Center);
+  assert(expected == result);
+}
+
 int main() {
   TestLeftAlign20();
   TestLeftAlign80();
@@ -98,6 +153,9 @@ int main() {
   TestRightAlign25();
   TestJustify30();
   TestJustify60();
+  TestCenter38();
+  TestCenter70();
+  TestCenter10();
   cout << "Tests passed!\n"s;
 
   return 0;
